@@ -24,13 +24,11 @@ router.post('/', function(req, res, next) {
 router.delete('/:travel_id', function(req, res, next) { 
   (async() => {
     promisePool = app.dbPool.promise();
-    await console.log('api delete開始');
-    await promisePool.query("DELETE FROM travels WHERE travle_id = ?",[req.params.travel_id]).catch(e => console.log(e));
+    await promisePool.query("DELETE FROM travels WHERE travel_id = ?",[req.params.travel_id]).catch(e => console.log(e));
     const [getRows, getFields] = await promisePool.query("SELECT * FROM travels");
     await res.header('Content-Type', 'application/json; charset=utf-8')
     await res.send(getRows); 
-    await console.log('api delete終了');
-  })
+  })();
 });
 
 module.exports = router;
